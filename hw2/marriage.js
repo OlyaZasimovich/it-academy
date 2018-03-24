@@ -4,14 +4,14 @@ class Person {
   }
 
   getMarry(p){
-    if (p && this.bestFriend != p && this.constructor.name !== p.constructor.name) {
-      this.bestFriend = p;
+    if (p && this.marriedOn != p && this.constructor.name !== p.constructor.name) {
+      this.marriedOn = p;
       p.getMarry(this);
     }
   }
 
   whoIsMarried() {
-    console.log(this.name + " > " + (this.bestFriend && this.bestFriend.name || 'none'));
+    console.log(this.name + " > " + (this.marriedOn && this.marriedOn.name || 'none'));
   }
 }
 
