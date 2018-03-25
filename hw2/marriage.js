@@ -4,7 +4,7 @@ class Person {
   }
 
   getMarry(p){
-    if (p && this.marriedOn != p && this.constructor.name !== p.constructor.name) {
+    if (p && this.marriedOn !== p && this.constructor.name !== p.constructor.name) {
       this.marriedOn = p;
       p.getMarry(this);
     }
