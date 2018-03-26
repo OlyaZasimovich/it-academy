@@ -6,7 +6,6 @@ function randomDiap(n,m) {
 
 function mood(colorsCount) {
   let colors=['', 'красный', 'оранжевый', 'жёлтый', 'зелёный', 'голубой', 'синий', 'фиолетовый' ];
-  if(colorsCount > 8) colorsCount = 8;
 
   console.log( 'цветов: ' + colorsCount );
   let myColors = {};
@@ -22,4 +21,4 @@ function mood(colorsCount) {
   }
 }
 
-mood(7);
+mood(20);
