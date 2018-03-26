@@ -1,4 +1,5 @@
- {
+"use strict";
+{
    let str = prompt("Введите строку");
    let counter = 0;
    if (!str) {
