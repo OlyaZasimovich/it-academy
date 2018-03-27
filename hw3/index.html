@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="./HashStorage.js" defer></script>
+</head>
+<style>
+    body {
+      font-size: 25px;
+    }
+    input {
+        font-size: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    form {
+        margin-bottom: 20px;
+        border-bottom: 1px dotted darkslategrey;
+    }
+</style>
+<body>
+  <form action="#" id="main-form">
+      <label for="nameOfCocktail">Напиток:</label><input id="nameOfCocktail" type="text"><br>
+      <label for="alcoholic">Алкогольный:</label><input id="alcoholic" type="checkbox"><br>
+      <label for="recipe">Рецепт приготовления:</label><input id="recipe" type="text"><br>
+      <input type="submit" onclick="drinkTable.addValue()" value="addToBase">
+  </form>
+  <form action="#" id="info-form">
+      <label for="info">Получить информацию о напитке:</label><input id="info" type="text"><br>
+      <input type="submit" onclick="drinkTable.getValue()" value="getInfo">
+      <div id="text-info"></div>
+  </form>
+  <form action="#" id="delete-form">
+      <label for="delete">Удалить информации о напитке:</label><input id="delete" type="text"><br>
+      <input type="submit" onclick="drinkTable.deleteValue()" value="deleteCocktai">
+  </form>
+  <form action="#" id="list-form">
+      <div>Перечень всех напитков:</div>
+      <input type="submit" onclick="drinkTable.getKeys()" value="Show">
+      <div id="list-cocktails"></div>
+  </form>
+</body>
+</html>
