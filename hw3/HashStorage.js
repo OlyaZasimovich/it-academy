@@ -31,7 +31,10 @@ class HashStorage {
     return keyArray;
   }
 }
-class drinkStorage extends HashStorage {
+class drinkStorage {
+  constructor() {
+    this.HashStorage = new HashStorage();
+  }
 
   addValue(){
     let name = document.getElementById("nameOfCocktail").value;
@@ -43,7 +46,7 @@ class drinkStorage extends HashStorage {
     };
 
     if (name && rec) {
-      super.addValue(name,obj);
+      this.HashStorage.addValue(name,obj);
     } else {
       alert('Enter the values');
     }
@@ -61,9 +64,9 @@ class drinkStorage extends HashStorage {
     if (infoBlock.childNodes.length !== 0) {
       infoBlock.innerHTML = '';
     }
-    let yourRecipeObj = super.getValue(infoField);
+    let yourRecipeObj = this.HashStorage.getValue(infoField);
 
-    if (!(infoField in this)) {
+    if (!(infoField in this.HashStorage)) {
       alert('Такого напитка нет в хранилище');
     } else {
       for (let key in yourRecipeObj) {
@@ -82,10 +85,10 @@ class drinkStorage extends HashStorage {
 
   deleteValue(){
     let deleteField = document.getElementById('delete').value;
-    if (!(deleteField in this)) {
+    if (!(deleteField in this.HashStorage)) {
       alert('Такого напитка нет в хранилище');
     } else {
-      super.deleteValue(deleteField);
+      this.HashStorage.deleteValue(deleteField);
       alert('Информация о напитке удалена');
     }
     (function() {
@@ -95,7 +98,7 @@ class drinkStorage extends HashStorage {
 
 
   getKeys(){
-    let listOfCocktails = super.getKeys();
+    let listOfCocktails = this.HashStorage.getKeys();
     let allCocktailsFrom = document.getElementById('list-cocktails');
 
     if (allCocktailsFrom.childNodes.length !== 0) {
@@ -113,7 +116,7 @@ class drinkStorage extends HashStorage {
         allCocktailsFrom.appendChild(allCocktailsBlock);
       }
     }
-    super.getKeys();
+    this.HashStorage.getKeys();
   }
 }
 
