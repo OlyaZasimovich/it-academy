@@ -2,7 +2,7 @@
 {
    let str = prompt("Введите строку");
    let counter = 0;
-   while (str==false) {
+   while (str == false) {
      str = prompt("Введите строку еще раз");
    }
 
