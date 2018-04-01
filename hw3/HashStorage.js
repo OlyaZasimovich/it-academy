@@ -4,21 +4,21 @@ class HashStorage {
     if (key && value) {
       this[key] = value;
     } else {
-      return false
+      return null
     }
   }
   getValue(key){
     if (key) {
       return this[key];
     } else {
-      return false
+      return null
     }
   }
   deleteValue(key){
     if (key) {
       delete this[key];
     } else {
-      return false
+      return null
     }
   }
   getKeys(){
