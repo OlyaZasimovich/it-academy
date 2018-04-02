@@ -29,6 +29,7 @@
     if (arrayProperty) {
       var myForm = document.createElement("form");
       document.body.appendChild(myForm);
+      myForm.setAttribute('action', 'http://fe.it-academy.by/TestForm.php ');
     }
     arrayProperty.forEach(function (value){
       for (let key in value) {
