@@ -23,12 +23,18 @@
   }
 
   function checkEmptyValue(field) {
-    if (field.type !== 'submit' && (  !field.value || (field.type == 'checkbox' && !field.checked)  ) ) {
+    if ( field.type !== 'submit' &&
+         !field.value  ||
+         (field.type == 'checkbox' && !field.checked) ||
+         (field.type == 'radio' && !field.checked)
+       )
+    {
       showError(field, 'Заполните поле ');
       paintBorder(field, 'red');
       return false;
-    } else if (field.value) {
+    } else if (field.value || (field.type == 'checkbox' && field.checked)) {
       paintBorder(field, 'green');
+      deleteError(field);
       return true;
     }
   }
@@ -60,6 +66,11 @@
     }
   }
 
+  // function checkRadioValue(radioArray) {
+  //   for (let i = 0; i < radioArray.length; i++) {
+  //     deleteError(field);
+  //   }
+  // }
 
   function validation(e) {
     let element = e.target;
@@ -85,6 +96,11 @@
       if (elements[i].type === 'url') {
         checkUrlValue(elements[i]);
       }
+      // if (elements[i].type === 'radio' && elements[i].name === 'payment') {
+      //   let arrayOfRadio = [];
+      //   arrayOfRadio.push(elements[i]);
+      //   checkRadioValue(arrayOfRadio);
+      // }
     }
   }
 
