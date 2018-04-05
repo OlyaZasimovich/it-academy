@@ -1,13 +1,6 @@
 {
-  function eventForInputs() {
-    let arrayInputs = document.getElementsByClassName('field');
-    for (let i = 0; i < arrayInputs.length; i++) {
-      arrayInputs[i].addEventListener('change', validation, false);
-    }
-  }
-  eventForInputs();
-
-  function showError( container, element, message) {
+  function showError(element, message) {
+    let container = element.parentNode;
     const errorText = document.createElement('span');
     errorText.innerText = `${message}`;
     errorText.className = 'error-text';
@@ -16,73 +9,91 @@
   }
   
   function paintBorder(element, color) {
-    if (element.type !== 'radio' || element.type !== 'checkbox'){
+    if (element.type !== 'radio' || element.type !== 'checkbox' || element.type !== 'submit'){
       element.style.borderColor = `${color}`;
     }
   }
 
-  function deleteError(container, element) {
+  function deleteError(element) {
+    let container = element.parentNode;
     const deletedElement = container.getElementsByClassName('error-text');
     for (let i=0; i<deletedElement.length; i++) {
       container.removeChild(deletedElement[i]);
     }
   }
 
-  function validation() {
-    const wrappper = this.parentNode;
-    const regexpEmail = /\w+@\w+\.\w+/gim;
-
-
-    if ( this.value == '' || (this.type == 'checkbox' && !this.checked ) ) {
-      showError( wrappper, this, 'Заполните поле ');
-      paintBorder(this, 'red');
-    }else if (this.value !== '' ) {
-      deleteError(wrappper, this);
-      paintBorder(this, 'green');
+  function checkEmptyValue(field) {
+    if (field.type !== 'submit' && (  !field.value || (field.type == 'checkbox' && !field.checked)  ) ) {
+      showError(field, 'Заполните поле ');
+      paintBorder(field, 'red');
+      return false;
+    } else if (field.value) {
+      paintBorder(field, 'green');
+      return true;
     }
-
-
-    if ( this.type == 'email' && this.value !== '' && this.value.search(regexpEmail) === -1 ) {
-      showError( wrappper, this, 'Введите существующий email ');
-      paintBorder(this, 'red');
-    } else if ( (this.type == 'email' && this.value !== '') || this.value.search(regexpEmail) !== -1 ) {
-      deleteError(wrappper, this);
-      paintBorder(this, 'green');
-    }
-
-    // console.log(this.value.search(regexpEmail) !== -1);
-    // if (this.value.search(regexpEmail) !== -1 && this.type == 'email' && this.value !== '') {
-    //   console.log(this.value.search(regexpEmail));
-    //   deleteError(wrappper, this);
-    // }
   }
 
-  // function showError(container, message) {
-  //   const errorText = document.createElement('span');
-  //   errorText.innerText = `${message}`;
-  //   container.appendChild(errorText);
-  //   if (this.type == 'text' || this.type == 'email') {
-  //     this.style.borderColor = 'red';
-  //   }}
-  // }
-  //
-  // function removeError(container) {
-  //   this.parentNode.removeChild(errorText);
-  // }
-  //
-  // function validation() {
-  //   let father = this.parentNode;
-  //   if (this.value == '') {
-  //     showError(father,'Введите данные');
-  //   }
-  //   console.log(this);
-  //   if (this.parentNode.querySelector('span')) {
-  //     this.parentNode.removeChild(errorText);
-  //   }
-  //   if (this.type == 'text' || this.type == 'email') {
-  //     this.style.borderColor = 'green';
-  //   }
-  // }
+  function checkEmailValue(field) {
+    const regexpEmail = /\w+@\w+\.\w+/gim;
+    deleteError(field);
+    if (field.value && field.value.search(regexpEmail) === -1) {
+      showError(field, 'Введите существующий email ');
+      paintBorder(field, 'red');
+      return false;
+    } else if (field.value || field.value.search(regexpEmail) !== -1) {
+      paintBorder(field, 'green');
+      return true;
+    }
+  }
+
+  function checkUrlValue(field) {
+    deleteError(field);
+    const expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    const regex = new RegExp(expression);
+    if (field.value && field.value.search(regex) === -1) {
+      showError(field, 'Введите корректный URL ');
+      paintBorder(field, 'red');
+      return false;
+    } else if (field.value || field.value.search(regex) !== -1) {
+      paintBorder(field, 'green');
+      return true;
+    }
+  }
+
+
+  function validation(e) {
+    let element = e.target;
+    checkEmptyValue(element);
+    if (element.type === 'email') {
+      checkEmailValue(element);
+    }
+    if (element.type === 'url') {
+      checkUrlValue(element);
+    }
+  }
+
+  function validationSubmit(e) {
+    event.preventDefault ? event.preventDefault() : (event.returnValue=false);
+    let myform = e.currentTarget;
+    let elements = myform.elements;
+    for (let i = 0; i < myform.length; i++) {
+      deleteError(elements[i]);
+      checkEmptyValue(elements[i]);
+      if (elements[i].type === 'email') {
+        checkEmailValue(elements[i]);
+      }
+      if (elements[i].type === 'url') {
+        checkUrlValue(elements[i]);
+      }
+    }
+  }
+
+  function eventForForm() {
+    const myForm = document.querySelector('form');
+    myForm.addEventListener('change', validation, true);
+    myForm.addEventListener('submit', validationSubmit, false);
+  }
+  eventForForm();
 }
 
 

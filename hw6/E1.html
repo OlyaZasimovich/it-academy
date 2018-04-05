@@ -21,32 +21,34 @@
     }
 </style>
 <body>
-<form>
-    <label>Название сайта:
-        <input class="field" type="text" name="sitename" style="width: 500px;">
-    </label>
-    <label>URL сайта:
-        <input class="field" type="text" name="siteurl" style="width: 500px;">
-    </label>
-    <label>Посетителей в сутки:
-        <input class="field" type="number" min="0" name="visitors" style="width: 100px;">
-    </label>
-    <label>E-mail для связи:
-        <input class="field" type="email" name="email" style="width: 300px;">
-    </label>
-    <label>Рубрика каталога:
-        <select class="field" name="division">
-            <option value="1">здоровье</option>
-            <option value="2">домашний уют</option>
-            <option value="3">бытовая техника</option>
-        </select></label>
-    <label>Размещение:
-        <input class="field" type="radio" value="1" name="payment"><span>бесплатное</span>
-        <input class="field" type="radio" value="2" name="payment"><span>платное</span>
-        <input class="field" type="radio" value="3" name="payment"><span>VIP</span>
-    </label>
-    <label>Разрешить отзывы:<input class="field" type="checkbox" name="votes"></label>
-    <label>Описание сайта:<textarea class="field" name="description"></textarea></label>
-    <label>Опубликовать:<input type="submit" onclick="validation()"></label></form>
+    <form action="http://fe.it-academy.by/TestForm.php ">
+        <label>Название сайта:
+            <input class="field" type="text" name="sitename" style="width: 500px;">
+        </label>
+        <label>URL сайта:
+            <input class="field" type="url" name="siteurl" style="width: 500px;">
+        </label>
+        <label>Посетителей в сутки:
+            <input class="field" type="number" min="0" name="visitors" style="width: 100px;">
+        </label>
+        <label>E-mail для связи:
+            <input class="field" type="email" name="email" style="width: 300px;">
+        </label>
+        <label>Рубрика каталога:
+            <select class="field" name="division">
+                <option disabled selected value>Выберите рубрику</option>
+                <option value="1">здоровье</option>
+                <option value="2">домашний уют</option>
+                <option value="3">бытовая техника</option>
+            </select></label>
+        <label id="placement">Размещение:
+            <input class="field" type="radio" value="1" name="payment"><span>бесплатное</span>
+            <input class="field" type="radio" value="2" name="payment"><span>платное</span>
+            <input class="field" type="radio" value="3" name="payment"><span>VIP</span>
+        </label>
+        <label>Разрешить отзывы:<input class="field" type="checkbox" name="votes"></label>
+        <label>Описание сайта:<textarea class="field" name="description"></textarea></label>
+        <label>Опубликовать:<input id="btn-send" type="submit" ></label>
+    </form>
 </body>
 </html>
