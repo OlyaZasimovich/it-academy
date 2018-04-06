@@ -40,7 +40,7 @@
 
   function checkEmailValue(field) {
     const regexpEmail = /\w+@\w+\.\w+/gim;
-    deleteError(field);
+    // deleteError(field);
     if (field.value && field.value.search(regexpEmail) === -1) {
       showError(field, ' Введите существующий email ');
       paintBorder(field, 'red');
@@ -52,7 +52,7 @@
   }
 
   function checkUrlValue(field) {
-    deleteError(field);
+    // deleteError(field);
     const expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     const regex = new RegExp(expression);
     if (field.value && field.value.search(regex) === -1) {
@@ -68,7 +68,6 @@
   function checkRadioValue(radioElement) {
     let flag = false;
     for (let i = 0; i < radioElement.length; i++) {
-      console.log(radioElement[i].checked);
       if (radioElement[i].checked){
         flag = true;
       }
@@ -84,6 +83,7 @@
 
   function validation(e) {
     let element = e.target;
+    deleteError(element);
     checkEmptyValue(element);
     if (element.type === 'email') {
       checkEmailValue(element);
