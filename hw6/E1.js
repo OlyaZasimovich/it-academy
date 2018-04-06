@@ -25,14 +25,13 @@
   function checkEmptyValue(field) {
     if ( field.type !== 'submit' &&
          !field.value  ||
-         (field.type == 'checkbox' && !field.checked) ||
-         (field.type == 'radio' && !field.checked)
+         (field.type === 'checkbox' && !field.checked)
        )
     {
-      showError(field, 'Заполните поле ');
+      showError(field, ' Заполните поле ');
       paintBorder(field, 'red');
       return false;
-    } else if (field.value || (field.type == 'checkbox' && field.checked)) {
+    } else if (field.value || (field.type === 'checkbox' && field.checked)) {
       paintBorder(field, 'green');
       deleteError(field);
       return true;
@@ -43,7 +42,7 @@
     const regexpEmail = /\w+@\w+\.\w+/gim;
     deleteError(field);
     if (field.value && field.value.search(regexpEmail) === -1) {
-      showError(field, 'Введите существующий email ');
+      showError(field, ' Введите существующий email ');
       paintBorder(field, 'red');
       return false;
     } else if (field.value || field.value.search(regexpEmail) !== -1) {
@@ -57,7 +56,7 @@
     const expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     const regex = new RegExp(expression);
     if (field.value && field.value.search(regex) === -1) {
-      showError(field, 'Введите корректный URL ');
+      showError(field, ' Введите корректный URL ');
       paintBorder(field, 'red');
       return false;
     } else if (field.value || field.value.search(regex) !== -1) {
@@ -66,11 +65,22 @@
     }
   }
 
-  // function checkRadioValue(radioArray) {
-  //   for (let i = 0; i < radioArray.length; i++) {
-  //     deleteError(field);
-  //   }
-  // }
+  function checkRadioValue(radioElement) {
+    let flag = false;
+    for (let i = 0; i < radioElement.length; i++) {
+      console.log(radioElement[i].checked);
+      if (radioElement[i].checked){
+        flag = true;
+      }
+    }
+    if (!flag) {
+      showError(radioElement[0], ' Заполните поле ');
+    }
+    return flag;
+  }
+
+
+
 
   function validation(e) {
     let element = e.target;
@@ -82,11 +92,11 @@
       checkUrlValue(element);
     }
   }
-
   function validationSubmit(e) {
     event.preventDefault ? event.preventDefault() : (event.returnValue=false);
     let myform = e.currentTarget;
     let elements = myform.elements;
+    let radioArray = [];
     for (let i = 0; i < myform.length; i++) {
       deleteError(elements[i]);
       checkEmptyValue(elements[i]);
@@ -96,12 +106,11 @@
       if (elements[i].type === 'url') {
         checkUrlValue(elements[i]);
       }
-      // if (elements[i].type === 'radio' && elements[i].name === 'payment') {
-      //   let arrayOfRadio = [];
-      //   arrayOfRadio.push(elements[i]);
-      //   checkRadioValue(arrayOfRadio);
-      // }
+      if (elements[i].type === 'radio' && elements[i].name === 'payment') {
+        radioArray.push(elements[i]);
+      }
     }
+    checkRadioValue(radioArray);
   }
 
   function eventForForm() {
