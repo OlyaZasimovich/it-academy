@@ -24,7 +24,7 @@
 
   function checkEmptyValue(field) {
     if ( field.type !== 'submit' &&
-         !field.value  ||
+         !field.value ||
          (field.type === 'checkbox' && !field.checked)
        )
     {
@@ -79,8 +79,6 @@
   }
 
 
-
-
   function validation(e) {
     let element = e.target;
     deleteError(element);
@@ -93,24 +91,27 @@
     }
   }
   function validationSubmit(e) {
-    event.preventDefault ? event.preventDefault() : (event.returnValue=false);
     let myform = e.currentTarget;
     let elements = myform.elements;
     let radioArray = [];
+    let flag = false;
     for (let i = 0; i < myform.length; i++) {
       deleteError(elements[i]);
-      checkEmptyValue(elements[i]);
+      if (checkEmptyValue(elements[i]) && elements[i].type !== 'radio') flag = true;
       if (elements[i].type === 'email') {
-        checkEmailValue(elements[i]);
+        if (checkEmailValue(elements[i])) flag = true;
       }
       if (elements[i].type === 'url') {
-        checkUrlValue(elements[i]);
+        if (checkUrlValue(elements[i])) flag = true;
       }
       if (elements[i].type === 'radio' && elements[i].name === 'payment') {
         radioArray.push(elements[i]);
       }
     }
-    checkRadioValue(radioArray);
+    if (checkRadioValue(radioArray)) flag = true;
+    if (!flag) {
+      event.preventDefault ? event.preventDefault() : (event.returnValue=false);
+    }
   }
 
   function eventForForm() {
