@@ -75,7 +75,6 @@
     if (!flag) {
       showError(radioElement[0], ' Заполните поле ');
     }
-    alert(flag);
     return flag;
   }
 
@@ -113,7 +112,6 @@
 
     errorElement = document.querySelector('.error-text').parentNode;
     let focusedElement = errorElement.querySelector('input');
-    console.log(focusedElement);
     focusedElement.focus();
     focusedElement.scrollIntoView();
 
