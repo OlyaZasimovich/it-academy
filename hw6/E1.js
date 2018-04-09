@@ -75,6 +75,7 @@
     if (!flag) {
       showError(radioElement[0], ' Заполните поле ');
     }
+    alert(flag);
     return flag;
   }
 
@@ -94,24 +95,34 @@
     let myform = e.currentTarget;
     let elements = myform.elements;
     let radioArray = [];
-    let flag = false;
+    let errorElement;
     for (let i = 0; i < myform.length; i++) {
       deleteError(elements[i]);
-      if (checkEmptyValue(elements[i]) && elements[i].type !== 'radio') flag = true;
+      checkEmptyValue(elements[i]);
       if (elements[i].type === 'email') {
-        if (checkEmailValue(elements[i])) flag = true;
+        checkEmailValue(elements[i])
       }
       if (elements[i].type === 'url') {
-        if (checkUrlValue(elements[i])) flag = true;
+        checkUrlValue(elements[i])
       }
       if (elements[i].type === 'radio' && elements[i].name === 'payment') {
         radioArray.push(elements[i]);
       }
     }
-    if (checkRadioValue(radioArray)) flag = true;
-    if (!flag) {
+    checkRadioValue(radioArray);
+
+    errorElement = document.querySelector('.error-text').parentNode;
+    let focusedElement = errorElement.querySelector('input');
+    console.log(focusedElement);
+    focusedElement.focus();
+    focusedElement.scrollIntoView();
+
+    if (focusedElement) {
       event.preventDefault ? event.preventDefault() : (event.returnValue=false);
     }
+
+
+
   }
 
   function eventForForm() {
