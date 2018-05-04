@@ -13,7 +13,6 @@ class MyModel {
       this.hours = new Intl.DateTimeFormat('ru-RU',{ timeZone: this.city, hour: '2-digit'}).format(this.myDate);
       this.min = new Intl.DateTimeFormat('ru-RU',{ timeZone: this.city, minute: '2-digit'}).format(this.myDate);
       this.sec = new Intl.DateTimeFormat('ru-RU',{ timeZone: this.city, second: '2-digit'}).format(this.myDate);
-      console.log('sec' + this.sec);
       if (this.onChangeNotify) {
         this.onChangeNotify();
       }
@@ -29,21 +28,27 @@ class MyModel {
     this.onChangeNotify = onChangeNotify;
   }
 
+  addZero(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
   getCurrentDate() {
     return this.currentDate;
   }
 
-
   getH() {
-    return this.hours;
+    return this.addZero(this.hours);
   }
 
   getMin() {
-    return this.min;
+    return this.addZero(this.min);
   }
 
   getS() {
-    return this.sec;
+    return this.addZero(this.sec);
   }
 }
 
@@ -158,7 +163,6 @@ class MyView {
       this.timeInsideClock.innerHTML = `<div class="time">${this.timeStr}</div>`;
       //запуск секундной стрелки
 
-      console.log(this.model.getS());
       this.degSec = this.model.getS()*6 + 96;
       this.arrowSecWr.style.transform = `rotate(${this.degSec}deg)`;
       this.degSec += 6;
