@@ -55,15 +55,19 @@
   let arrowHours = document.createElement('div');
   drawArrow(arrowHoursWr, arrowHours, 'hours ');
 
-
-
-
+  function addZero(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
 
   setInterval(function() {
     let now = new Date();
     let hours = now.getHours();
     let min = now.getMinutes();
-    let sec = now.getSeconds();
+    let sec = addZero(now.getSeconds());
+
     timeStr = hours + ':' + min + ':' + sec;
     time.innerHTML = `<div class="time">${timeStr}</div>`;
     //запуск секундной стрелки
