@@ -64,8 +64,8 @@
 
   setInterval(function() {
     let now = new Date();
-    let hours = now.getHours();
-    let min = now.getMinutes();
+    let hours = addZero(now.getHours());
+    let min = addZero(now.getMinutes());
     let sec = addZero(now.getSeconds());
 
     timeStr = hours + ':' + min + ':' + sec;
