@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="TLocalStorage.js" defer></script>
+    <script type="text/javascript" src="J1.js" defer></script>
+</head>
+<style>
+    body {
+        display: flex;
+        font-size: 25px;
+    }
+    input {
+        font-size: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    form {
+        margin-bottom: 20px;
+        border-bottom: 1px dotted darkslategrey;
+    }
+    .types {
+        margin: 0 30px;
+        padding: 20px;
+        border: 1px solid black;
+    }
+</style>
+<body>
+<div class="types">
+    <form action="#" id="main-form">
+        <label for="nameOfCocktail">Напиток:</label><input id="nameOfCocktail" type="text"><br>
+        <label for="alcoholic">Алкогольный:</label><input id="alcoholic" type="checkbox"><br>
+        <label for="recipe">Рецепт приготовления:</label><input id="recipe" type="text"><br>
+        <input type="submit" onclick="drinkTable.addValue()" value="addToBase">
+    </form>
+    <form action="#" id="info-form">
+        <label for="info">Получить информацию о напитке:</label><input id="info" type="text"><br>
+        <input type="submit" onclick="drinkTable.getValue()" value="getInfo">
+        <div id="text-info"></div>
+    </form>
+    <form action="#" id="delete-form">
+        <label for="delete">Удалить информации о напитке:</label><input id="delete" type="text"><br>
+        <input type="submit" onclick="drinkTable.deleteValue()" value="deleteCocktai">
+    </form>
+    <form action="#" id="list-form">
+        <div>Перечень всех напитков:</div>
+        <input type="submit" onclick="drinkTable.getKeys()" value="Show">
+        <div id="list-cocktails"></div>
+    </form>
+    <input type="submit" onclick="drinkTable.getAll()" value="Add to Local Storage">
+</div>
+
+<div class="types">
+    <form action="#" id="main-form-dish">
+        <label for="nameOfDish">Блюдо:</label><input id="nameOfDish" type="text"><br>
+        <label for="dishRecipe">Рецепт приготовления:</label><input id="dishRecipe" type="text"><br>
+        <input type="submit" onclick="dishesTable.addValue()" value="addToBaseDish">
+    </form>
+    <form action="#" id="info-form-dish">
+        <label for="info-dish">Получить информацию о блюде:</label><input id="info-dish" type="text"><br>
+        <input type="submit" onclick="dishesTable.getValue()" value="getInfoDish">
+        <div id="text-info-dish"></div>
+    </form>
+    <form action="#" id="delete-form-dish">
+        <label for="delete-dish">Удалить информации о блюде:</label><input id="delete-dish" type="text"><br>
+        <input type="submit" onclick="dishesTable.deleteValue()" value="deleteDish">
+    </form>
+    <form action="#" id="list-form-dish">
+        <div>Перечень всех блюд:</div>
+        <input type="submit" onclick="dishesTable.getKeys()" value="showDish">
+        <div id="list-dish"></div>
+    </form>
+    <input type="submit" onclick="dishesTable.getAll()" value="Add to Local Storage">
+</div>
+</body>
+</html>

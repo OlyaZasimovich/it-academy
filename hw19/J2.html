@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="J2.js"></script>
+</head>
+<style>
+    .clock {
+        position: relative;
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+        background-color: orange;
+    }
+    .circle {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background-color: green;
+    }
+    .circle div{
+        width: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+    .circleWrapper {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    .circleWrapper .circle:first-child {
+        top: 15px;
+    }
+    .circleWrapper .circle:last-child {
+        bottom: 15px;
+    }
+    .time {
+        font-size: 2em;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .arrow-wrapper {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 10px;
+        top: 50%;
+        left: 0;
+    }
+    .arrow-sec {
+        position: absolute;
+        left: 54px;
+        width: 45%;
+        height: 2px;
+        background-color: black;
+    }
+    .arrow-min {
+        position: absolute;
+        left: 20%;
+        width: 30%;
+        height: 4px;
+        background-color: black;
+    }
+    .arrow-hours {
+        position: absolute;
+        left: 28%;
+        width: 26%;
+        height: 6px;
+        background-color: black;
+    }
+</style>
+<body>
+    <script>
+        new ApplicationController("America/New_York");
+        new ApplicationController("Europe/London");
+        new ApplicationController("Europe/Berlin");
+        new ApplicationController("Europe/Minsk");
+        new ApplicationController("Asia/Tokyo");
+        new ApplicationController("Asia/Vladivostok");
+    </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+'use strict';
+{
+
+  class HashStorage {
+    addValue(key,value){
+      if (key && value) {
+        this[key] = value;
+      } else {
+        return null
+      }
+    }
+    getValue(key){
+      if (key) {
+        return this[key];
+      } else {
+        return null
+      }
+    }
+    deleteValue(key){
+      if (key) {
+        delete this[key];
+      } else {
+        return null
+      }
+    }
+    getKeys(){
+
+      let keyArray = [];
+      for (let k in this) {
+        if (k) {
+          keyArray.push(k);
+        }
+      }
+      return keyArray;
+    }
+    getAll() {
+      return this;
+    }
+  }
+  class drinkStorage {
+    constructor() {
+      this.HashStorage = new HashStorage();
+    }
+
+    addValue(){
+      let name = document.getElementById("nameOfCocktail").value;
+      let alcohol = document.getElementById("alcoholic").checked;
+      let rec = document.getElementById('recipe').value;
+      let obj = {
+        'alcoholic' : alcohol ? 'yes' : 'no',
+        'recipe' : rec,
+      };
+
+      if (name && rec) {
+        this.HashStorage.addValue(name,obj);
+      } else {
+        alert('Enter the values');
+      }
+
+      (function resetMainFrom() {
+        document.getElementById('main-form').reset();
+      })();
+
+    }
+    getValue(){
+      let infoField = document.getElementById('info').value;
+      let infoBlock = document.getElementById('text-info');
+      if (infoBlock.childNodes.length !== 0) {
+        infoBlock.innerHTML = '';
+      }
+      let yourRecipeObj = this.HashStorage.getValue(infoField);
+
+      if (!(infoField in this.HashStorage)) {
+        alert('Такого напитка нет в хранилище');
+      } else {
+        for (let key in yourRecipeObj) {
+          let yourRecipeStr = `${key}:  ${yourRecipeObj[key]}`;
+          let block = document.createElement("DIV");
+          let t = document.createTextNode(yourRecipeStr);
+          block.appendChild(t);
+          infoBlock.appendChild(block);
+        }
+      }
+      (function() {
+        document.getElementById('info-form').reset();
+      })();
+    }
+    deleteValue(){
+      let deleteField = document.getElementById('delete').value;
+      if (!(deleteField in this.HashStorage)) {
+        alert('Такого напитка нет в хранилище');
+      } else {
+        this.HashStorage.deleteValue(deleteField);
+        alert('Информация о напитке удалена');
+      }
+      (function() {
+        document.getElementById('delete-form').reset();
+      })()
+    }
+    getKeys(){
+      let listOfCocktails = this.HashStorage.getKeys();
+      let allCocktailsFrom = document.getElementById('list-cocktails');
+
+      if (allCocktailsFrom.childNodes.length !== 0) {
+        allCocktailsFrom.innerHTML = '';
+      }
+
+      if (listOfCocktails.length === 0) {
+        alert('Нет напитков в хранилище');
+      } else {
+        for (let i = 0; i < listOfCocktails.length; i++) {
+          let yourCocktailStr = listOfCocktails[i];
+          let allCocktailsBlock = document.createElement("DIV");
+          let t = document.createTextNode(yourCocktailStr);
+          allCocktailsBlock.appendChild(t);
+          allCocktailsFrom.appendChild(allCocktailsBlock);
+        }
+      }
+      this.HashStorage.getKeys();
+    }
+    getAll() {
+      let ls = new TLocalStorage('drinks');
+      ls.setData(this.HashStorage.getAll());
+    }
+  }
+  class dishesStorage {
+    constructor() {
+      this.HashStorage = new HashStorage();
+    }
+
+    addValue(){
+      let name = document.getElementById("nameOfDish").value;
+      let rec = document.getElementById('dishRecipe').value;
+      let obj = {
+        'recipe' : rec,
+      };
+
+      if (name && rec) {
+        this.HashStorage.addValue(name,obj);
+      } else {
+        alert('Enter the values');
+      }
+
+      (function resetMainFrom() {
+        document.getElementById('main-form-dish').reset();
+      })();
+
+    }
+
+
+    getValue(){
+      let infoField = document.getElementById('info-dish').value;
+      let infoBlock = document.getElementById('text-info-dish');
+      if (infoBlock.childNodes.length !== 0) {
+        infoBlock.innerHTML = '';
+      }
+      let yourRecipeObj = this.HashStorage.getValue(infoField);
+
+      if (!(infoField in this.HashStorage)) {
+        alert('Такого блюда нет в хранилище');
+      } else {
+        for (let key in yourRecipeObj) {
+          let yourRecipeStr = `${key}:  ${yourRecipeObj[key]}`;
+          let block = document.createElement("DIV");
+          let t = document.createTextNode(yourRecipeStr);
+          block.appendChild(t);
+          infoBlock.appendChild(block);
+        }
+      }
+      (function() {
+        document.getElementById('info-form-dish').reset();
+      })();
+    }
+
+
+    deleteValue(){
+      let deleteField = document.getElementById('delete-dish').value;
+      if (!(deleteField in this.HashStorage)) {
+        alert('Такого блюда нет в хранилище');
+      } else {
+        this.HashStorage.deleteValue(deleteField);
+        alert('Информация о блюде удалена');
+      }
+      (function() {
+        document.getElementById('delete-form-dish').reset();
+      })()
+    }
+
+
+    getKeys(){
+      let listOfCocktails = this.HashStorage.getKeys();
+      let allCocktailsFrom = document.getElementById('list-dish');
+
+      if (allCocktailsFrom.childNodes.length !== 0) {
+        allCocktailsFrom.innerHTML = '';
+      }
+
+      if (listOfCocktails.length === 0) {
+        alert('Нет блюд в хранилище');
+      } else {
+        for (let i = 0; i < listOfCocktails.length; i++) {
+          let yourCocktailStr = listOfCocktails[i];
+          let allCocktailsBlock = document.createElement("DIV");
+          let t = document.createTextNode(yourCocktailStr);
+          allCocktailsBlock.appendChild(t);
+          allCocktailsFrom.appendChild(allCocktailsBlock);
+        }
+      }
+      this.HashStorage.getKeys();
+    }
+    getAll() {
+      let ls = new TLocalStorage('dishes');
+      ls.setData(this.HashStorage.getAll());
+    }
+  }
+
+  const lsDrinks = new TLocalStorage('drinks');
+  var drinkTable = new drinkStorage();
+  lsDrinks.getData(drinkTable);
+
+  const lsDishes = new TLocalStorage('dishes');
+  var dishesTable = new dishesStorage();
+  lsDishes.getData(dishesTable);
+}
