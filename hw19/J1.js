@@ -1,47 +1,10 @@
 'use strict';
 {
 
-  class HashStorage {
-    addValue(key,value){
-      if (key && value) {
-        this[key] = value;
-      } else {
-        return null
-      }
-    }
-    getValue(key){
-      if (key) {
-        return this[key];
-      } else {
-        return null
-      }
-    }
-    deleteValue(key){
-      if (key) {
-        delete this[key];
-      } else {
-        return null
-      }
-    }
-    getKeys(){
-
-      let keyArray = [];
-      for (let k in this) {
-        if (k) {
-          keyArray.push(k);
-        }
-      }
-      return keyArray;
-    }
-    getAll() {
-      return this;
-    }
-  }
   class drinkStorage {
     constructor() {
-      this.HashStorage = new HashStorage();
+      this.TLocalStorage = new TLocalStorage('drink');
     }
-
     addValue(){
       let name = document.getElementById("nameOfCocktail").value;
       let alcohol = document.getElementById("alcoholic").checked;
@@ -52,7 +15,7 @@
       };
 
       if (name && rec) {
-        this.HashStorage.addValue(name,obj);
+        this.TLocalStorage.addValue(name,obj);
       } else {
         alert('Enter the values');
       }
@@ -68,9 +31,9 @@
       if (infoBlock.childNodes.length !== 0) {
         infoBlock.innerHTML = '';
       }
-      let yourRecipeObj = this.HashStorage.getValue(infoField);
+      let yourRecipeObj = this.TLocalStorage.getValue(infoField);
 
-      if (!(infoField in this.HashStorage)) {
+      if (!(infoField in this.TLocalStorage.lsParse)) {
         alert('Такого напитка нет в хранилище');
       } else {
         for (let key in yourRecipeObj) {
@@ -87,10 +50,10 @@
     }
     deleteValue(){
       let deleteField = document.getElementById('delete').value;
-      if (!(deleteField in this.HashStorage)) {
+      if (!(deleteField in this.TLocalStorage.lsParse)) {
         alert('Такого напитка нет в хранилище');
       } else {
-        this.HashStorage.deleteValue(deleteField);
+        this.TLocalStorage.deleteValue(deleteField);
         alert('Информация о напитке удалена');
       }
       (function() {
@@ -98,7 +61,7 @@
       })()
     }
     getKeys(){
-      let listOfCocktails = this.HashStorage.getKeys();
+      let listOfCocktails = this.TLocalStorage.getKeys();
       let allCocktailsFrom = document.getElementById('list-cocktails');
 
       if (allCocktailsFrom.childNodes.length !== 0) {
@@ -116,16 +79,13 @@
           allCocktailsFrom.appendChild(allCocktailsBlock);
         }
       }
-      this.HashStorage.getKeys();
-    }
-    getAll() {
-      let ls = new TLocalStorage('drinks');
-      ls.setData(this.HashStorage.getAll());
+      this.TLocalStorage.getKeys();
     }
   }
+
   class dishesStorage {
     constructor() {
-      this.HashStorage = new HashStorage();
+      this.TLocalStorage = new TLocalStorage('dish');
     }
 
     addValue(){
@@ -134,19 +94,15 @@
       let obj = {
         'recipe' : rec,
       };
-
       if (name && rec) {
-        this.HashStorage.addValue(name,obj);
+        this.TLocalStorage.addValue(name,obj);
       } else {
         alert('Enter the values');
       }
-
       (function resetMainFrom() {
         document.getElementById('main-form-dish').reset();
       })();
-
     }
-
 
     getValue(){
       let infoField = document.getElementById('info-dish').value;
@@ -154,9 +110,8 @@
       if (infoBlock.childNodes.length !== 0) {
         infoBlock.innerHTML = '';
       }
-      let yourRecipeObj = this.HashStorage.getValue(infoField);
-
-      if (!(infoField in this.HashStorage)) {
+      let yourRecipeObj = this.TLocalStorage.getValue(infoField);
+      if (!(infoField in this.TLocalStorage.lsParse)) {
         alert('Такого блюда нет в хранилище');
       } else {
         for (let key in yourRecipeObj) {
@@ -175,10 +130,10 @@
 
     deleteValue(){
       let deleteField = document.getElementById('delete-dish').value;
-      if (!(deleteField in this.HashStorage)) {
+      if (!(deleteField in this.TLocalStorage.lsParse)) {
         alert('Такого блюда нет в хранилище');
       } else {
-        this.HashStorage.deleteValue(deleteField);
+        this.TLocalStorage.deleteValue(deleteField);
         alert('Информация о блюде удалена');
       }
       (function() {
@@ -188,7 +143,7 @@
 
 
     getKeys(){
-      let listOfCocktails = this.HashStorage.getKeys();
+      let listOfCocktails = this.TLocalStorage.getKeys();
       let allCocktailsFrom = document.getElementById('list-dish');
 
       if (allCocktailsFrom.childNodes.length !== 0) {
@@ -206,19 +161,11 @@
           allCocktailsFrom.appendChild(allCocktailsBlock);
         }
       }
-      this.HashStorage.getKeys();
-    }
-    getAll() {
-      let ls = new TLocalStorage('dishes');
-      ls.setData(this.HashStorage.getAll());
+      this.TLocalStorage.getKeys();
     }
   }
 
-  const lsDrinks = new TLocalStorage('drinks');
   var drinkTable = new drinkStorage();
-  lsDrinks.getData(drinkTable);
 
-  const lsDishes = new TLocalStorage('dishes');
   var dishesTable = new dishesStorage();
-  lsDishes.getData(dishesTable);
 }

@@ -1,23 +1,50 @@
 class TLocalStorage {
   constructor(id) {
     this.id = id;
-  }
-
-  getData(whereUse) {
-    this.whereUse = whereUse;
-    console.log(whereUse);
-    let savedDataDrinks = localStorage[this.id];
-    let sDataDrinks = null;
-    if (savedDataDrinks) {
-      sDataDrinks = JSON.parse(savedDataDrinks);
-    }
-    for (let key in sDataDrinks) {
-      this.whereUse.HashStorage.addValue(key, sDataDrinks[key]);
+    this.ls = localStorage[this.id];
+    this.list = {};
+    if (this.ls) {
+      this.lsParse = JSON.parse(this.ls);
     }
   }
 
-  setData(data) {
-    this.data = data;
-    localStorage[this.id] = JSON.stringify(this.data);
+  addValue(key, value) {
+    if (key && value) {
+      if (this.ls) {
+        this.lsParse[key] = value;
+        this.ls = JSON.stringify(this.lsParse);
+      }
+      this.list[key] = value;
+      localStorage[this.id] = JSON.stringify(this.list);
+    } else {
+      return null
+    }
+  }
+
+  getValue(key) {
+    if (key) {
+      return this.lsParse[key];
+    } else {
+      return null
+    }
+  }
+
+  deleteValue(key) {
+    if (key) {
+      delete this.lsParse[key];
+      localStorage[this.id] = JSON.stringify(this.lsParse);
+    } else {
+      return null
+    }
+  }
+
+  getKeys() {
+    let keyArray = [];
+    for (let k in this.lsParse) {
+      if (k) {
+        keyArray.push(k);
+      }
+    }
+    return keyArray;
   }
 }
